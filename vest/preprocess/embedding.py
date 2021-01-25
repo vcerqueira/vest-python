@@ -31,6 +31,32 @@ def embed(sequence, k: int, return_df: bool = False):
     return X
 
 
+def embed_with_target(sequence, k: int):
+    """ Time Delay Embedding for a single output (h=1)
+
+    :param sequence: A time series
+    :param k: Embedding dimension
+    :return: X, y
+    """
+    X, y = [], []
+
+    for i in range(len(sequence)):
+        # find the end of this pattern
+        end_ix = i + k
+        # check if we are beyond the sequence
+        if end_ix > len(sequence) - 1:
+            break
+        # gather input and output parts of the pattern
+        seq_x, seq_y = sequence[i:end_ix], sequence[end_ix]
+        X.append(seq_x)
+        y.append(seq_y)
+
+    X = np.array(X)
+    y = np.array(y)
+
+    return X, y
+
+
 def embed2seq(sequence_mat: np.ndarray):
     """ Un-embed time series into sequence
 
