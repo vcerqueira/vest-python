@@ -21,6 +21,7 @@ from vest.aggregations.lyapunov import mle
 from vest.aggregations.hurst import hurst
 from vest.aggregations.last_point import last_point
 from vest.aggregations.fft import fft_amplitude
+from vest.aggregations.stationarity import Stationarity
 
 peaks_features = PeaksFeatures()
 fractal_features = FractalDimensionFeatures()
@@ -73,7 +74,11 @@ SUMMARY_OPERATIONS_ALL = \
         gini=gini_index,
         higuchi=fractal_features.higuchi,
         hjorth_complexity=hjorth_features.complexity,
-        hjorth_mobility=hjorth_features.mobility
+        hjorth_mobility=hjorth_features.mobility,
+        st_adf=Stationarity.adf,
+        st_level=Stationarity.level_stationarity,
+        st_trend=Stationarity.trend_stationarity,
+        st_wv=Stationarity.wavelets,
     )
 
 SUMMARY_OPERATIONS_SMALL = \
@@ -124,5 +129,9 @@ SUMMARY_OPERATIONS_FAST = \
         mean_diff=changes_features.mean_diff,
         mean_2_der=changes_features.mean_2dc,
         cross_median=crossing_features.median,
-        gini=gini_index
+        gini=gini_index,
+        st_adf=Stationarity.adf,
+        st_level=Stationarity.level_stationarity,
+        st_trend=Stationarity.trend_stationarity,
+        st_wv=Stationarity.wavelets,
     )
